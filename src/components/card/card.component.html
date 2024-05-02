@@ -1,37 +1,18 @@
-<owc-card elevated interactive>
+<div class="card-container">
+<owc-card rounded>
     <owc-component-header slot="header">
-        <div> Title </div>
-        <div>
-            <owc-icon-button family="outlined" icon="print" alternate variant="inner"></owc-icon-button>
-            <owc-icon-button family="outlined" icon="more_vertical" alternate variant="inner"></owc-icon-button>
-        </div>
-    </owc-component-header>
-    <div> 
-    <p>Content Area</p>
-    </div>
-    <owc-component-footer slot="footer">
-        <div>
-            <owc-button elevated variant="secondary"> Button </owc-button>
-            <owc-button elevated> Button </owc-button>
-        </div>
-    </owc-component-footer>
-    </owc-card>
-    <br />
-    <owc-card rounded>
-    <owc-component-header slot="header">
-        <div> Title </div>
-        <div>
-            <owc-icon-button family="outlined" icon="print" variant="inner"></owc-icon-button>
+        <div class="title"> Select driver </div>
+        <div slot="suffix" class="icon-buttons">
             <owc-icon-button family="outlined" icon="more_vertical" variant="inner"></owc-icon-button>
         </div>
     </owc-component-header>
-    <div> 
-    <p>Content Area</p>
+    <div class="content-area"> 
+        <p>Content Area</p>
     </div>
     <owc-component-footer slot="footer">
-        <div>
-            <owc-button elevated> Button </owc-button>
+        <div slot="suffix" class="buttons">
             <owc-button elevated> Button </owc-button>
         </div>
     </owc-component-footer>
-    </owc-card>
+</owc-card>
+</div>

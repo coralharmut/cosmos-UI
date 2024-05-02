@@ -1,0 +1,31 @@
+.card-container {
+    width: 60%; 
+    margin: 0 auto; 
+}
+.title {
+    font-weight: 500;
+    color: var(--one-color-foreground-base);
+}
+
+.icon-buttons {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.content-area {
+    height: 167px;
+    width: 100%;
+    background: var(--one-color-interaction-disabled-intensity-low);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(-10.02deg);
+    color: var(--one-color-interaction-disabled-intensity-high);
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
