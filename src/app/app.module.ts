@@ -1,18 +1,14 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { OneWebComponentsAngularModule } from '@one/angular';
+import { CardComponent } from '../components/card/card.component';
 import { AppComponent } from './app.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
-  providers: [],
+  declarations: [AppComponent, CardComponent],
+  imports: [BrowserModule, FormsModule, OneWebComponentsAngularModule],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class AppModule {}

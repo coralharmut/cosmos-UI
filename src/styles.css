@@ -1,1 +1,5 @@
-/* You can add global styles to this file, and also import other style files */
+@import '@one/web-components/dist/owc/owc.css';
+@import '@one/icons/dist/one-icons-outlined.css';
+@import '@one/icons/dist/one-icons-filled.css';
+@import '@one/roche-font/roche-font.css';
+@import '@one/design-tokens/css/navify/light/variables.css';
