@@ -54,9 +54,22 @@ export class SchemaService {
         </Options>
       </Feature>
     `);
+
+    this.driverSchemas.set('Driver B', `
+    <Feature ID="OPTIONS">
+      <Options>
+        <Option Name="CUSTOM_OPTION_1" Description="Description of custom option 1 for Driver B." Type="text" Mandatory="true" DefaultValue="" />
+        <Option Name="CUSTOM_OPTION_2" Description="Description of custom option 2 for Driver B." Type="boolean" Mandatory="false" DefaultValue="false" />
+      </Options>
+    </Feature>
+  `);
   }
 
   getDriverSchema(driverType: string): string | undefined {
     return this.driverSchemas.get(driverType);
+  }
+
+  getAllDriverTypes(): Iterable<string> {
+    return this.driverSchemas.keys();
   }
 }

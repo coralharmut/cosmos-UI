@@ -14,7 +14,7 @@
 }
 
 .content-area {
-    height: 167px;
+    height: 300px;
     width: 100%;
     background: var(--one-color-interaction-disabled-intensity-low);
     display: flex;

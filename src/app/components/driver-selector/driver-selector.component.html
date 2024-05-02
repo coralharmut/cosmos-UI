@@ -1,5 +1,9 @@
 <owc-expandable variant="standard" round>
 	<span slot="title">Available drivers</span>
 	<owc-icon slot="icon"></owc-icon>
-	<span slot="content">Driver A</span>
+	<span slot="content">
+		<owc-list>
+			<owc-list-item *ngFor="let driver of drivers">{{driver}}</owc-list-item>
+		  </owc-list>
+		</span>
 </owc-expandable>
