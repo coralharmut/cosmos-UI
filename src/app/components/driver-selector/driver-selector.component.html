@@ -1,9 +1,21 @@
 <owc-expandable variant="standard" round>
-	<span slot="title">Available drivers</span>
-	<owc-icon slot="icon"></owc-icon>
-	<span slot="content">
-		<owc-list>
-			<owc-list-item *ngFor="let driver of drivers">{{driver}}</owc-list-item>
-		  </owc-list>
-		</span>
+    <span slot="title">Available drivers</span>
+    <owc-icon slot="icon"></owc-icon>
+    <span slot="content">
+        <owc-list>
+            <owc-list-item *ngFor="let driver of drivers" (click)="showDriverOptions(driver)">
+                {{ driver }}
+            </owc-list-item>
+        </owc-list>
+    </span>
 </owc-expandable>
+
+<div *ngIf="selectedDriver">
+    <h2>Configuration for {{ selectedDriver }}</h2>
+    <div *ngFor="let option of driverOptions" class="option-item">
+        <h3>{{ option.name }}</h3>
+        <p>Description: {{ option.description }}</p>
+        <p>Default Value: {{ option.defaultValue }}</p>
+    </div>
+</div>
+
