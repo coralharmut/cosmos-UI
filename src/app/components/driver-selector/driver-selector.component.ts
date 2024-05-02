@@ -9,7 +9,7 @@ import { SchemaService } from '../../services/schema.service';
 export class DriverSelectorComponent {
   drivers: string[] = [];
   selectedDriver: string | null = null;
-  driverOptions: { name: string, description: string, defaultValue: string }[] = [];
+  driverOptions: { name: string, description: string, defaultValue: string, value?: any }[] = [];
 
   constructor(private schemaService: SchemaService) {
     this.loadDrivers();
@@ -29,16 +29,16 @@ export class DriverSelectorComponent {
     }
   }
 
-  private extractOptionsFromSchema(schema: string): { name: string, description: string, defaultValue: string }[] {
+  private extractOptionsFromSchema(schema: string): { name: string, description: string, defaultValue: string, value: string }[] {
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(schema, 'text/xml');
     const options = Array.from(xmlDoc.getElementsByTagName('Option'));
     return options.map(option => {
-        return {
-            name: option.getAttribute('Name') || '',
-            description: option.getAttribute('Description') || '',
-            defaultValue: option.getAttribute('DefaultValue') || ''
-        };
+        const name = option.getAttribute('Name') || '';
+        const description = option.getAttribute('Description') || '';
+        const defaultValue = option.getAttribute('DefaultValue') || '';
+        const value = option.getAttribute('Value') || defaultValue;
+        return { name, description, defaultValue, value };
     });
   }
 }
