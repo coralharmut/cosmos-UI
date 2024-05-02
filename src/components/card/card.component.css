@@ -20,8 +20,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transform: rotate(-10.02deg);
-    color: var(--one-color-interaction-disabled-intensity-high);
 }
 
 .buttons {
