@@ -14,8 +14,7 @@
 }
 
 .content-area {
-    height: 300px;
-    width: 100%;
+    padding: 10px;
     background: var(--one-color-interaction-disabled-intensity-low);
     display: flex;
     align-items: center;
