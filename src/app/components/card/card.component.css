@@ -16,7 +16,7 @@
 .content-area {
     padding: 10px;
     background: var(--one-color-interaction-disabled-intensity-low);
-    display: flex;
+
     align-items: center;
     justify-content: center;
 }
