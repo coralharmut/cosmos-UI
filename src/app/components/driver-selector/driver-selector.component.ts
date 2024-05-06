@@ -12,12 +12,7 @@ export class DriverSelectorComponent {
   driverOptions: { name: string, description: string, defaultValue: string, value?: any }[] = [];
 
   constructor(private schemaService: SchemaService) {
-    this.loadDrivers();
     this.schemaService.loadDriverSchemas();
-  }
-
-  private loadDrivers(): void {
-    this.drivers = Array.from(this.schemaService.getAllDriverTypes());
   }
 
   showDriverOptions(driver: string): void {
