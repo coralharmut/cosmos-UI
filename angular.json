@@ -32,7 +32,8 @@
 
 						"assets": [
 							"src/favicon.ico",
-							"src/assets"
+							"src/assets",
+							"src/assets/ppx drivers/A_Schema.xml"
 						],
 						"styles": [
 							"src/styles.css"

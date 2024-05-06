@@ -27,34 +27,37 @@ module.exports = {
   experiments: {
     outputModule: true
   },
+  module: {
+    rules: [
+      {
+        test: /\.xml$/,
+        use: 'raw-loader'
+      }
+    ]
+  },
   plugins: [
     new ModuleFederationPlugin({
-
-
-        // For remotes (please adjust)
-        name: "remoteAngularApp",
-        filename: "remoteEntry.js",
-        exposes: {
-            './AppModule': './/src/app/app.module.ts',
-            './DriversComp': './/src/drivers.comp.ts'
-
-        },
+      // For remotes (please adjust)
+      name: "remoteAngularApp",
+      filename: "remoteEntry.js",
+      exposes: {
+        './AppModule': './/src/app/app.module.ts',
+        './DriversComp': './/src/drivers.comp.ts'
+      },
 
         // For hosts (please adjust)
         // remotes: {
         //     "mfe1": "http://localhost:3000/remoteEntry.js",
 
         // },
-
-        shared: share({
-          "@angular/core": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
-          "@angular/common": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
-          "@angular/common/http": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
-          "@angular/router": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
-
-          ...sharedMappings.getDescriptors()
-        })
-
+        
+      shared: share({
+        "@angular/core": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
+        "@angular/common": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
+        "@angular/common/http": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
+        "@angular/router": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
+        ...sharedMappings.getDescriptors()
+      })
     }),
     sharedMappings.getPlugin()
   ],

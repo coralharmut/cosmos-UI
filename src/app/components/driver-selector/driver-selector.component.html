@@ -4,29 +4,27 @@
     <span slot="content">
         <owc-list>
             <owc-list-item *ngFor="let driver of drivers" (click)="showDriverOptions(driver)">
-                {{ driver }}
+                {{ driver.name }}
             </owc-list-item>
         </owc-list>
     </span>
 </owc-expandable>
 
-<div *ngIf="selectedDriver" class = "box">
-	<owc-card>
-		<div class = "content">
-    <h2>Configuration for {{ selectedDriver }}</h2>
-    <div *ngFor="let option of driverOptions" class="option-item">
-        <h3>{{ option.name }}</h3>
-        <p>Description: {{ option.description }}</p>
-		<owc-input
-		style="margin-top: 8px;"
-		compact="true"
-		placeholder="Enter value"
-		round="false"
-		variant="outlined"
-		[(ngModel)]="option.value"
-	  ></owc-input>
-	</div>
-    </div>
-</owc-card>
+<div *ngIf="selectedDriver" class="box">
+    <owc-card>
+        <div class="content">
+            <h2>Configuration for {{ selectedDriver.name }}</h2>
+            <div *ngFor="let option of selectedDriver.options" class="option-item">
+                <h3>{{ option.name }}</h3>
+                <p>Description: {{ option.description }}</p>
+                <owc-input
+                   style="margin-top: 8px;"
+                    compact="true"
+                    placeholder="Enter value"
+                    round="false"
+                    variant="outlined"
+                ></owc-input>
+            </div>
+        </div>
+    </owc-card>
 </div>
-

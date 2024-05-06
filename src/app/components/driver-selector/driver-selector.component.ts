@@ -7,29 +7,32 @@ import { SchemaService } from '../../services/schema.service';
   styleUrls: ['./driver-selector.component.css']
 })
 export class DriverSelectorComponent {
-  drivers: string[] = [];
-  selectedDriver: string | null = null;
-  driverOptions: { name: string, description: string, defaultValue: string, value?: any }[] = [];
-
+  drivers: { name: string, type: string, options: any[] }[] = [];
+  selectedDriver: { name: string, type: string, options: any[] } | null = null;
+  
   constructor(private schemaService: SchemaService) {
+    this.schemaService.loadDriverSchemas();
     this.loadDrivers();
   }
 
   private loadDrivers(): void {
-    this.drivers = Array.from(this.schemaService.getAllDriverTypes());
+    this.drivers = Array.from(this.schemaService.getAllDriverFiles()).map(file => {
+      const xmlContent = require(`../../../assets/ppx drivers/${file}`);
+      const parser = new DOMParser();
+      const xmlDoc = parser.parseFromString(xmlContent.default, 'text/xml');
+      const driverName = xmlDoc.querySelector('Driver')?.getAttribute('Name') || 'Unknown Driver';
+      const driverType = xmlDoc.querySelector('Feature')?.getAttribute('ID') || '';
+      const driverOptions = this.extractOptionsFromSchema(xmlContent.default);
+      return { name: driverName, type: driverType, options: driverOptions };
+    });
   }
+  
 
-  showDriverOptions(driver: string): void {
-    this.selectedDriver = driver;
-    const schema = this.schemaService.getDriverSchema(driver);
-    if (schema) {
-      this.driverOptions = this.extractOptionsFromSchema(schema);
-    } else {
-      this.driverOptions = [];
-    }
-  }
+  showDriverOptions(driver: { name: string, type: string, options: any[] }): void {
+    this.selectedDriver = driver; 
+  }  
 
-  private extractOptionsFromSchema(schema: string): { name: string, description: string, defaultValue: string, value: string }[] {
+  private extractOptionsFromSchema(schema: string): { name: string, description: string, defaultValue: any, value: string }[] {
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(schema, 'text/xml');
     const options = Array.from(xmlDoc.getElementsByTagName('Option'));
