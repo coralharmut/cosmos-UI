@@ -29,10 +29,10 @@ export class DriverSelectorComponent {
   
 
   showDriverOptions(driver: { name: string, type: string, options: any[] }): void {
-    this.selectedDriver = driver; // Update selected driver
+    this.selectedDriver = driver; 
   }  
 
-  private extractOptionsFromSchema(schema: string): { name: string, description: string, defaultValue: string, value: string }[] {
+  private extractOptionsFromSchema(schema: string): { name: string, description: string, defaultValue: any, value: string }[] {
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(schema, 'text/xml');
     const options = Array.from(xmlDoc.getElementsByTagName('Option'));

@@ -29,14 +29,15 @@ export class SchemaService {
     });
   }
 
-  getDriverSchema(driverType: string): string | undefined {
+  getDriverSchema(driverType: string): string {
     for (const schemaMap of this.driverSchemas.values()) {
       if (schemaMap.has(driverType)) {
-        return schemaMap.get(driverType);
+        return schemaMap.get(driverType)!;
       }
     }
-    return undefined;
+    throw new Error(`Schema not found for driver type: ${driverType}`);
   }
+  
 
   getDriverName(driverType: string): string | undefined {
     for (const [driverName, schemaMap] of this.driverSchemas) {
