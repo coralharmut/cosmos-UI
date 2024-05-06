@@ -7,7 +7,7 @@ export class SchemaService {
 
   private driverFiles: string[] = ['A_Schema.xml', 'B_Schema.xml']; 
 
-  private driverSchemas: Map<string, { name: string, schema: string }> = new Map();
+  private driverSchemas: Map<string, Map<string, string>> = new Map();
 
   constructor() { }
 
@@ -19,23 +19,32 @@ export class SchemaService {
       const driverNode = xmlDoc.getElementsByTagName('Driver')[0];
       const driverName = driverNode.getAttribute('Name') || 'Unknown Driver'; 
       const featureNodes = xmlDoc.getElementsByTagName('Feature');
+      const driverSchemaMap: Map<string, string> = new Map();
       for (let i = 0; i < featureNodes.length; i++) {
         const driverType = featureNodes[i].getAttribute('ID') || '';
         const schema = featureNodes[i].outerHTML;
-        this.driverSchemas.set(driverType, { name: driverName, schema: schema });
-        console.log('data gathered:', driverName, driverType, schema)
+        driverSchemaMap.set(driverType, schema);
       }
+      this.driverSchemas.set(driverName, driverSchemaMap);
     });
   }
 
   getDriverSchema(driverType: string): string | undefined {
-    const driverInfo = this.driverSchemas.get(driverType);
-    return driverInfo ? driverInfo.schema : undefined;
+    for (const schemaMap of this.driverSchemas.values()) {
+      if (schemaMap.has(driverType)) {
+        return schemaMap.get(driverType);
+      }
+    }
+    return undefined;
   }
 
   getDriverName(driverType: string): string | undefined {
-    const driverInfo = this.driverSchemas.get(driverType);
-    return driverInfo ? driverInfo.name : undefined;
+    for (const [driverName, schemaMap] of this.driverSchemas) {
+      if (schemaMap.has(driverType)) {
+        return driverName;
+      }
+    }
+    return undefined;
   }
 
   getAllDriverFiles(): string[] {
@@ -43,6 +52,10 @@ export class SchemaService {
   }
 
   getAllDriverTypes(): Iterable<string> {
-    return this.driverSchemas.keys();
+    const driverTypes: string[] = [];
+    for (const schemaMap of this.driverSchemas.values()) {
+      driverTypes.push(...Array.from(schemaMap.keys()));
+    }
+    return driverTypes;
   }
 }
