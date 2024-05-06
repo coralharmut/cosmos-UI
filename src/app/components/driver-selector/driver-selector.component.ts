@@ -13,6 +13,7 @@ export class DriverSelectorComponent {
 
   constructor(private schemaService: SchemaService) {
     this.loadDrivers();
+    this.schemaService.loadDriverSchemas();
   }
 
   private loadDrivers(): void {
