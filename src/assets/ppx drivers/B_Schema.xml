@@ -1,4 +1,4 @@
-<Driver Name="Driver A">
+<Driver Name="Driver B">
 	<Feature ID="OPTIONS">
 		<Options>
 			<Option Name="KEEPALIVE_INTERVAL" Description="Number of seconds for the TCP/IP KeepAlive interval time." Type="integer" Mandatory="false" DefaultValue="30"/>

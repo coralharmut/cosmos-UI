@@ -5,25 +5,41 @@ import { Injectable } from '@angular/core';
 })
 export class SchemaService {
 
-  private driverSchemas: Map<string, string> = new Map();
+  private driverFiles: string[] = ['A_Schema.xml', 'B_Schema.xml']; 
+
+  private driverSchemas: Map<string, { name: string, schema: string }> = new Map();
 
   constructor() { }
 
   loadDriverSchemas(): void {
-    const xmlContent = require('../../assets/ppx drivers/A_Schema.xml');
-    const parser = new DOMParser();
-    const xmlDoc = parser.parseFromString(xmlContent.default, 'text/xml');
-    const driverNodes = xmlDoc.getElementsByTagName('Feature');
-    for (let i = 0; i < driverNodes.length; i++) {
-      const driverType = driverNodes[i].getAttribute('ID') || '';
-      const schema = driverNodes[i].outerHTML;
-      this.driverSchemas.set(driverType, schema);
-      console.log('data gathered:', driverType, schema)
-    }
+    this.driverFiles.forEach(file => {
+      const xmlContent = require(`../../assets/ppx drivers/${file}`);
+      const parser = new DOMParser();
+      const xmlDoc = parser.parseFromString(xmlContent.default, 'text/xml');
+      const driverNode = xmlDoc.getElementsByTagName('Driver')[0];
+      const driverName = driverNode.getAttribute('Name') || 'Unknown Driver'; 
+      const featureNodes = xmlDoc.getElementsByTagName('Feature');
+      for (let i = 0; i < featureNodes.length; i++) {
+        const driverType = featureNodes[i].getAttribute('ID') || '';
+        const schema = featureNodes[i].outerHTML;
+        this.driverSchemas.set(driverType, { name: driverName, schema: schema });
+        console.log('data gathered:', driverName, driverType, schema)
+      }
+    });
   }
 
   getDriverSchema(driverType: string): string | undefined {
-    return this.driverSchemas.get(driverType);
+    const driverInfo = this.driverSchemas.get(driverType);
+    return driverInfo ? driverInfo.schema : undefined;
+  }
+
+  getDriverName(driverType: string): string | undefined {
+    const driverInfo = this.driverSchemas.get(driverType);
+    return driverInfo ? driverInfo.name : undefined;
+  }
+
+  getAllDriverFiles(): string[] {
+    return this.driverFiles;
   }
 
   getAllDriverTypes(): Iterable<string> {
